@@ -7,7 +7,7 @@ import icon from 'astro-icon';
 // When migrating to a custom domain on Netlify, change `site` to the real
 // domain and set `base: '/'`.
 const REPO_NAME = 'nintai-web';
-const GITHUB_USER = 'CHANGE-ME-GITHUB-USERNAME';
+const GITHUB_USER = 'NicBac1';
 
 export default defineConfig({
   site: `https://${GITHUB_USER}.github.io`,
