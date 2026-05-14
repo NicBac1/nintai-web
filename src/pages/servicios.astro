@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceSection from '@/components/services/ServiceSection.astro';
+import { audiences } from '@/lib/site';
+import { Icon } from 'astro-icon/components';
+
+const services = (await getCollection('services')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout
+  title="Servicios"
+  description="Experiencias psicoeducativas para comunidades educativas, familias, organizaciones y procesos individuales."
+>
+  <section class="bg-cream py-section-lg">
+    <div class="container-prose mx-auto max-w-3xl text-center">
+      <p class="eyebrow mb-4">Nuestros servicios</p>
+      <h1 class="font-display text-display-xl text-sage-deep">
+        Acompañamos procesos humanos con sentido
+      </h1>
+      <p class="mt-6 text-lg text-ink/80">
+        Diseñamos experiencias psicoeducativas adaptadas a cada audiencia. Cada
+        propuesta se construye contigo, considerando el contexto y las
+        necesidades reales de quienes participan.
+      </p>
+
+      <nav aria-label="Navegar por audiencia" class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        {
+          audiences.map((audience) => (
+            <a
+              href={`#${audience.anchor}`}
+              class="inline-flex items-center gap-2 rounded-full border border-cream-deep bg-cream-deep/40 px-4 py-2 text-sm font-medium text-ink/80 transition-colors hover:border-sage hover:text-sage-deep"
+            >
+              <Icon name={audience.icon} class="h-4 w-4" />
+              {audience.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </section>
+
+  <div class="container-prose">
+    {services.map((service, i) => <ServiceSection service={service} reverse={i % 2 === 1} />)}
+  </div>
+</BaseLayout>

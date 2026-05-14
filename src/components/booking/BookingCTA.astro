@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+import { buildWhatsappUrl } from '@/lib/whatsapp';
+import type { AudienceKey } from '@/lib/site';
+
+interface Props {
+  audience?: AudienceKey;
+  eventTitle?: string;
+  message?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  label?: string;
+  iconOnly?: boolean;
+  className?: string;
+}
+
+const {
+  audience,
+  eventTitle,
+  message,
+  variant = 'primary',
+  label = 'Conversar por WhatsApp',
+  iconOnly = false,
+  className = '',
+} = Astro.props;
+
+const href = buildWhatsappUrl({ audience, eventTitle, message });
+
+const variantClass =
+  variant === 'primary'
+    ? 'btn-primary'
+    : variant === 'secondary'
+      ? 'btn-secondary'
+      : 'btn-ghost';
+---
+
+<a
+  href={href}
+  class:list={[variantClass, className]}
+  target="_blank"
+  rel="noopener"
+  aria-label={iconOnly ? label : undefined}
+>
+  <Icon name="lucide:message-circle" class="h-4 w-4" aria-hidden="true" />
+  {!iconOnly && <span>{label}</span>}
+</a>

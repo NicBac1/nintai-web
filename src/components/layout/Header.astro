@@ -1,0 +1,82 @@
+---
+import { Icon } from 'astro-icon/components';
+import BookingCTA from '@/components/booking/BookingCTA.astro';
+import { siteConfig } from '@/lib/site';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const nav = [
+  { href: `${baseUrl}/servicios`, label: 'Servicios' },
+  { href: `${baseUrl}/eventos`, label: 'Eventos' },
+  { href: `${baseUrl}/sobre-nintai`, label: 'Sobre Nintai' },
+  { href: `${baseUrl}/contacto`, label: 'Contacto' },
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+---
+
+<header class="sticky top-0 z-40 border-b border-cream-deep/60 bg-cream/90 backdrop-blur">
+  <div class="container-prose flex items-center justify-between py-4 md:py-5">
+    <a href={`${baseUrl}/`} class="flex items-center gap-3" aria-label={`${siteConfig.businessName} — inicio`}>
+      <img
+        src={`${baseUrl}/logo/nintai.svg`}
+        alt=""
+        width="160"
+        height="80"
+        class="h-10 w-auto md:h-12"
+      />
+    </a>
+
+    <nav aria-label="Navegación principal" class="hidden items-center gap-8 md:flex">
+      {
+        nav.map((item) => {
+          const isActive = currentPath === item.href.replace(/\/$/, '');
+          return (
+            <a
+              href={item.href}
+              class:list={[
+                'text-sm font-medium tracking-wide transition-colors',
+                isActive ? 'text-sage-deep' : 'text-ink hover:text-sage',
+              ]}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+      <BookingCTA variant="primary" label="WhatsApp" iconOnly={false} />
+    </nav>
+
+    <button
+      type="button"
+      class="md:hidden text-sage-deep"
+      aria-label="Abrir menú"
+      data-mobile-menu-toggle
+    >
+      <Icon name="lucide:menu" class="h-7 w-7" />
+    </button>
+  </div>
+
+  <div
+    class="hidden md:hidden border-t border-cream-deep/60 bg-cream"
+    data-mobile-menu
+  >
+    <nav aria-label="Navegación móvil" class="container-prose flex flex-col gap-4 py-6">
+      {
+        nav.map((item) => (
+          <a href={item.href} class="text-base font-medium text-ink hover:text-sage">
+            {item.label}
+          </a>
+        ))
+      }
+      <BookingCTA variant="primary" label="Conversar por WhatsApp" />
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('[data-mobile-menu-toggle]');
+  const menu = document.querySelector('[data-mobile-menu]');
+  toggle?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/ui/Section.astro';
+import EventCard from '@/components/events/EventCard.astro';
+import PastEventCard from '@/components/events/PastEventCard.astro';
+import SubscribeForm from '@/components/subscribe/SubscribeForm.astro';
+
+const now = new Date();
+const all = await getCollection('events');
+const upcoming = all
+  .filter((e) => e.data.startsAt >= now && e.data.statusOverride !== 'pasado')
+  .sort((a, b) => a.data.startsAt.getTime() - b.data.startsAt.getTime());
+const past = all
+  .filter((e) => e.data.startsAt < now || e.data.statusOverride === 'pasado')
+  .sort((a, b) => b.data.startsAt.getTime() - a.data.startsAt.getTime());
+---
+
+<BaseLayout
+  title="Eventos"
+  description="Encuentros y talleres psicoeducativos próximos en Bogotá, Fusagasugá y modalidad virtual."
+>
+  <section class="bg-cream py-section-lg">
+    <div class="container-prose mx-auto max-w-3xl text-center">
+      <p class="eyebrow mb-4">Encuentros</p>
+      <h1 class="font-display text-display-xl text-sage-deep">Próximos encuentros</h1>
+      <p class="mt-6 text-lg text-ink/80">
+        Talleres y experiencias para detenernos juntos. Suscríbete para que nunca
+        te pierdas un próximo encuentro.
+      </p>
+    </div>
+  </section>
+
+  <Section>
+    {
+      upcoming.length > 0 ? (
+        <div class="grid gap-8 md:grid-cols-2">
+          {upcoming.map((event) => <EventCard event={event} />)}
+        </div>
+      ) : (
+        <div class="mx-auto max-w-xl rounded-2xl bg-cream-deep/60 p-10 text-center">
+          <p class="font-display text-2xl text-sage-deep">
+            Pronto anunciaremos nuestros próximos encuentros.
+          </p>
+          <p class="mt-3 text-ink/75">
+            Síguenos en Instagram o suscríbete para no perderte nada.
+          </p>
+        </div>
+      )
+    }
+  </Section>
+
+  {
+    past.length > 0 && (
+      <Section eyebrow="Memoria" title="Lo que hemos vivido" bg="cream-deep">
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {past.map((event) => (
+            <PastEventCard event={event} />
+          ))}
+        </div>
+      </Section>
+    )
+  }
+
+  <Section eyebrow="Mantente al tanto" title="Suscríbete a nuestros encuentros">
+    <div class="mx-auto max-w-2xl rounded-2xl bg-cream-deep/60 p-8 md:p-10">
+      <SubscribeForm />
+    </div>
+  </Section>
+</BaseLayout>

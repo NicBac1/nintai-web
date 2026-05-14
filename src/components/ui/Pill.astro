@@ -1,0 +1,29 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  icon?: string;
+  variant?: 'sage' | 'warm' | 'neutral';
+  class?: string;
+}
+
+const { icon, variant = 'sage', class: className = '' } = Astro.props;
+
+const variantClass =
+  variant === 'sage'
+    ? 'bg-sage-tint text-sage-deep'
+    : variant === 'warm'
+      ? 'bg-warm/15 text-ink'
+      : 'bg-cream-deep text-ink';
+---
+
+<span
+  class:list={[
+    'inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wide',
+    variantClass,
+    className,
+  ]}
+>
+  {icon && <Icon name={icon} class="h-3.5 w-3.5" />}
+  <slot />
+</span>

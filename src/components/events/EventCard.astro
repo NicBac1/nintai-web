@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import Pill from '@/components/ui/Pill.astro';
+import BookingCTA from '@/components/booking/BookingCTA.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  event: CollectionEntry<'events'>;
+  featured?: boolean;
+}
+
+const { event, featured = false } = Astro.props;
+const { data } = event;
+
+const dateFmt = new Intl.DateTimeFormat('es-CO', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+const timeFmt = new Intl.DateTimeFormat('es-CO', {
+  hour: 'numeric',
+  minute: '2-digit',
+  hour12: true,
+});
+
+const dateLabel = dateFmt.format(data.startsAt);
+const timeLabel = timeFmt.format(data.startsAt);
+---
+
+<article
+  class:list={[
+    'group flex flex-col overflow-hidden rounded-2xl bg-cream-deep/60 transition-shadow duration-200 hover:shadow-soft',
+    featured ? 'md:grid md:grid-cols-2 md:items-stretch' : '',
+  ]}
+>
+  <Image
+    src={data.coverImage}
+    alt={data.coverAlt}
+    widths={[400, 800, 1200]}
+    sizes={featured ? '(min-width: 768px) 50vw, 100vw' : '(min-width: 768px) 33vw, 100vw'}
+    class:list={[
+      'h-56 w-full object-cover md:h-full',
+      featured ? 'md:h-72 lg:h-96' : '',
+    ]}
+  />
+
+  <div class:list={['flex flex-col gap-4 p-6 md:p-8', featured ? 'md:justify-center' : '']}>
+    <div class="flex flex-wrap gap-2">
+      <Pill icon="lucide:map-pin">{data.modality}</Pill>
+      <Pill variant="warm">{data.location}</Pill>
+    </div>
+
+    <h3 class:list={['font-display text-sage-deep', featured ? 'text-display-md' : 'text-2xl']}>
+      {data.title}
+    </h3>
+
+    <div class="flex flex-col gap-1 text-sm text-muted md:flex-row md:items-center md:gap-4">
+      <span class="inline-flex items-center gap-1.5">
+        <Icon name="lucide:calendar" class="h-4 w-4" />
+        <span class="capitalize">{dateLabel}</span>
+      </span>
+      <span class="inline-flex items-center gap-1.5">
+        <Icon name="lucide:clock" class="h-4 w-4" />
+        {timeLabel}
+      </span>
+    </div>
+
+    <p class="text-ink/80">{data.summary}</p>
+
+    <div class="mt-2">
+      <BookingCTA
+        eventTitle={data.title}
+        label="Quiero asistir"
+        variant={featured ? 'primary' : 'secondary'}
+      />
+    </div>
+  </div>
+</article>

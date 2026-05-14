@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BookingCTA from '@/components/booking/BookingCTA.astro';
+---
+
+<BaseLayout
+  title="Agenda una conversación"
+  description="Agenda un primer encuentro con Nintai."
+  noindex
+>
+  <section class="py-section-lg">
+    <div class="container-prose mx-auto max-w-2xl text-center">
+      <p class="eyebrow mb-4">Agendar</p>
+      <h1 class="font-display text-display-lg text-sage-deep">
+        Conversemos por WhatsApp
+      </h1>
+      <p class="mt-5 text-lg text-ink/80">
+        Hoy gestionamos cada encuentro de forma personal por WhatsApp. Escríbenos
+        y agendaremos un momento para conversar con calma sobre lo que necesitas.
+      </p>
+      <div class="mt-8 flex justify-center">
+        <BookingCTA label="Escribir por WhatsApp" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

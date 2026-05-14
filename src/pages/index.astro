@@ -1,0 +1,165 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/ui/Section.astro';
+import BookingCTA from '@/components/booking/BookingCTA.astro';
+import EventCard from '@/components/events/EventCard.astro';
+import { audiences, siteConfig } from '@/lib/site';
+import teamReflection from '@/assets/photos/team-reflection.png';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const pillars = (await getCollection('pillars')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const now = new Date();
+const allEvents = await getCollection('events');
+const upcoming = allEvents
+  .filter((e) => e.data.startsAt >= now && e.data.statusOverride !== 'pasado')
+  .sort((a, b) => a.data.startsAt.getTime() - b.data.startsAt.getTime());
+const nextEvent = upcoming[0];
+---
+
+<BaseLayout>
+  {/* HERO */}
+  <section class="relative overflow-hidden">
+    <div class="container-prose grid items-center gap-12 py-section-lg md:grid-cols-[1.2fr_1fr] md:py-section-lg md:gap-16">
+      <div class="animate-fade-up">
+        <p class="eyebrow mb-4">Experiencias Psicoeducativas</p>
+        <h1 class="font-display text-display-xl text-sage-deep">
+          Cultivamos bienestar,<br />impulsamos transformación
+        </h1>
+        <p class="mt-6 max-w-prose text-lg text-ink/80">
+          {siteConfig.description}
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <BookingCTA label="Conversemos" />
+          <a href={`${baseUrl}/servicios`} class="btn-secondary">
+            Conoce nuestros servicios
+            <Icon name="lucide:arrow-right" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+
+      <div class="relative mx-auto w-full max-w-md">
+        <div class="absolute -inset-6 -z-10 rounded-3xl bg-sage-tint" aria-hidden="true"></div>
+        <img
+          src={`${baseUrl}/logo/nintai.svg`}
+          alt="Nintai · Experiencias Psicoeducativas"
+          width="400"
+          height="200"
+          class="mx-auto h-auto w-full"
+        />
+      </div>
+    </div>
+  </section>
+
+  {/* ESPACIO PARA DETENERNOS */}
+  <Section bg="cream-deep">
+    <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
+      <div>
+        <h2 class="font-display text-display-lg text-sage-deep">
+          Un espacio para detenernos, reflexionar y transformarnos
+        </h2>
+        <p class="mt-6 text-lg text-ink/85">
+          En Nintai creemos que el bienestar emocional es la base para construir
+          vínculos más conscientes, entornos más saludables y procesos de desarrollo
+          verdaderamente significativos.
+        </p>
+      </div>
+      <Image
+        src={teamReflection}
+        alt="Espacio de reflexión y conexión en un encuentro de Nintai"
+        widths={[500, 900]}
+        sizes="(min-width: 768px) 45vw, 100vw"
+        class="aspect-[4/3] w-full rounded-2xl object-cover"
+      />
+    </div>
+  </Section>
+
+  {/* LOS 4 PILARES */}
+  <Section
+    eyebrow="Creamos experiencias que fortalecen"
+    title="Los 4 pilares de Nintai"
+    intro="Cada experiencia que diseñamos integra estos pilares para acompañar procesos humanos con sentido."
+  >
+    <div class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        pillars.map((pillar) => (
+          <div class="flex flex-col items-center text-center">
+            <div class="mb-4 inline-flex h-[88px] w-[88px] items-center justify-center rounded-full bg-sage-tint">
+              <Icon name={pillar.data.icon} class="h-12 w-12 text-sage" />
+            </div>
+            <h3 class="font-display text-xl text-sage-deep">{pillar.data.name}</h3>
+            <p class="mt-2 text-sm text-ink/75">{pillar.data.shortDescription}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  {/* ¿QUÉ HACEMOS? */}
+  <Section
+    eyebrow="¿Qué hacemos?"
+    title="Acompañamos procesos de transformación"
+    intro="Diseñamos experiencias psicoeducativas orientadas al fortalecimiento del bienestar emocional y el desarrollo humano."
+    bg="cream-deep"
+  >
+    <div class="grid gap-5 sm:grid-cols-2">
+      {
+        audiences.map((audience) => (
+          <a
+            href={`${baseUrl}/servicios#${audience.anchor}`}
+            class="card-hover group block"
+          >
+            <div class="flex items-center gap-4">
+              <span class="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-sage-tint">
+                <Icon name={audience.icon} class="h-6 w-6 text-sage" />
+              </span>
+              <h3 class="font-display text-2xl text-sage-deep">{audience.label}</h3>
+            </div>
+            <p class="mt-4 text-ink/80">{audience.blurb}</p>
+            <p class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-sage transition-transform group-hover:translate-x-0.5">
+              Conoce más
+              <Icon name="lucide:arrow-right" class="h-4 w-4" />
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+
+  {/* PRÓXIMO ENCUENTRO */}
+  {
+    nextEvent && (
+      <Section
+        eyebrow="Próximo encuentro"
+        title={nextEvent.data.title}
+        intro="Un espacio para detenernos juntos."
+      >
+        <div class="mx-auto max-w-4xl">
+          <EventCard event={nextEvent} featured />
+        </div>
+      </Section>
+    )
+  }
+
+  {/* CIERRE */}
+  <Section bg="cream-deep" size="lg">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="font-display text-display-md italic text-sage-deep">
+        “Creemos que cuidar también transforma”
+      </p>
+      <p class="mt-6 text-ink/80">
+        Por eso generamos espacios que integran reflexión, aprendizaje y herramientas
+        prácticas para acompañar procesos humanos con sentido.
+      </p>
+      <div class="mt-8 flex justify-center">
+        <BookingCTA label="Conversemos" />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

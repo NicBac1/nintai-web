@@ -1,0 +1,127 @@
+@import '@fontsource/cormorant-garamond/400.css';
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/cormorant-garamond/400-italic.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --cream: #f1ecde;
+    --cream-deep: #e8e1ce;
+    --sage: #658266;
+    --sage-deep: #4e6650;
+    --sage-tint: rgba(101, 130, 102, 0.08);
+    --ink: #2e342a;
+    --muted: #7a766b;
+    --warm: #c9a57a;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: theme('fontFamily.sans');
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (min-width: 768px) {
+    body {
+      font-size: 17px;
+    }
+  }
+
+  h1, h2, h3 {
+    font-family: theme('fontFamily.display');
+    color: var(--sage-deep);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+
+  h4, h5, h6 {
+    font-family: theme('fontFamily.sans');
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+
+  a {
+    color: var(--sage);
+    text-decoration-color: rgba(101, 130, 102, 0.3);
+    text-underline-offset: 3px;
+    transition: color 150ms ease;
+  }
+
+  a:hover {
+    color: var(--sage-deep);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--sage);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--sage-tint);
+    color: var(--sage-deep);
+  }
+}
+
+@layer components {
+  .container-prose {
+    @apply mx-auto max-w-container px-6 md:px-12;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-muted;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-sm font-medium transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sage focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
+  }
+
+  .btn-primary {
+    @apply btn bg-sage text-cream hover:bg-sage-deep;
+  }
+
+  .btn-secondary {
+    @apply btn border border-sage text-sage hover:bg-sage-tint;
+  }
+
+  .btn-ghost {
+    @apply btn text-sage hover:text-sage-deep;
+  }
+
+  .card {
+    @apply rounded-2xl bg-cream-deep p-6 transition-shadow duration-200 ease-out md:p-8;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-soft;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

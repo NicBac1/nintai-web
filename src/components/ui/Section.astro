@@ -1,0 +1,42 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  align?: 'center' | 'left';
+  id?: string;
+  bg?: 'cream' | 'cream-deep';
+  size?: 'default' | 'lg';
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  intro,
+  align = 'center',
+  id,
+  bg = 'cream',
+  size = 'default',
+  class: className = '',
+} = Astro.props;
+
+const bgClass = bg === 'cream-deep' ? 'bg-cream-deep/50' : '';
+const paddingClass = size === 'lg' ? 'py-section-lg' : 'py-section';
+const alignClass = align === 'center' ? 'text-center' : '';
+---
+
+<section id={id} class:list={[bgClass, paddingClass, className]}>
+  <div class="container-prose">
+    {
+      (eyebrow || title || intro) && (
+        <header class:list={['mx-auto mb-12 max-w-2xl', alignClass]}>
+          {eyebrow && <p class="eyebrow mb-3">{eyebrow}</p>}
+          {title && <h2 class="font-display text-display-lg text-sage-deep">{title}</h2>}
+          {intro && <p class="mt-5 text-lg text-ink/80">{intro}</p>}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</section>

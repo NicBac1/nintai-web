@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <defs>
+    <style>
+      .logo-color { fill: #658266; }
+      .main-text {
+        font-family: "Georgia", "Times New Roman", serif;
+        font-size: 190px;
+        text-anchor: middle;
+      }
+      .sub-text {
+        font-family: "Arial", "Helvetica", sans-serif;
+        font-size: 19px;
+        letter-spacing: 5px;
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+
+  <text x="400" y="240" class="logo-color main-text">Nintai</text>
+
+  <path class="logo-color" d="M 165,100 C 210,15 280,75 325,115 C 380,165 490,65 590,30 C 500,75 400,150 345,100 C 295,50 230,-5 155,90 Z" />
+
+  <path class="logo-color" d="M 120,285 Q 280,260 420,270 T 740,255 Q 560,285 420,278 Q 280,268 120,285 Z" />
+
+  <text x="400" y="340" class="logo-color sub-text">EXPERIENCIAS PSICOEDUCATIVAS</text>
+</svg>

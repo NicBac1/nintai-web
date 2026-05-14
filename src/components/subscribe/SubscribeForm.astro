@@ -1,0 +1,92 @@
+---
+import { siteConfig } from '@/lib/site';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Demo: posts to Formspree (free tier). In production this swaps to /api/subscribe → Brevo.
+const endpoint = siteConfig.formspreeEndpoint;
+---
+
+<form
+  action={endpoint}
+  method="POST"
+  class={compact ? 'flex flex-col gap-3' : 'grid gap-4 md:grid-cols-2'}
+  aria-label="Suscríbete a las próximas experiencias de Nintai"
+>
+  {
+    !compact && (
+      <label class="flex flex-col gap-1 text-sm">
+        <span class="font-medium text-ink">Nombre</span>
+        <input
+          type="text"
+          name="name"
+          required
+          class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink placeholder:text-muted focus:border-sage focus:outline-none"
+          placeholder="¿Cómo te llamas?"
+        />
+      </label>
+    )
+  }
+  <label class={compact ? 'flex flex-col gap-1 text-sm' : 'flex flex-col gap-1 text-sm md:col-span-1'}>
+    {!compact && <span class="font-medium text-ink">Correo</span>}
+    <input
+      type="email"
+      name="email"
+      required
+      class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink placeholder:text-muted focus:border-sage focus:outline-none"
+      placeholder="tu@correo.com"
+      aria-label="Correo electrónico"
+    />
+  </label>
+
+  {
+    !compact && (
+      <fieldset class="md:col-span-2 flex flex-col gap-3 text-sm">
+        <legend class="font-medium text-ink">¿Qué te interesa?</legend>
+        <div class="flex flex-wrap gap-3">
+          {['Eventos', 'Talleres para colegios', 'Talleres para familias', 'Procesos individuales'].map(
+            (interest) => (
+              <label class="inline-flex items-center gap-2 rounded-full border border-cream-deep bg-cream px-4 py-2 text-sm hover:border-sage">
+                <input type="checkbox" name="interest" value={interest} class="accent-sage" />
+                <span>{interest}</span>
+              </label>
+            ),
+          )}
+        </div>
+      </fieldset>
+    )
+  }
+
+  {
+    !compact && (
+      <label class="md:col-span-2 flex items-start gap-2 text-xs text-muted">
+        <input type="checkbox" name="consent" required class="mt-1 accent-sage" />
+        <span>
+          Acepto recibir comunicaciones de {siteConfig.businessName} y la
+          <a href={`${baseUrl}/privacidad`} class="underline">política de privacidad</a>.
+        </span>
+      </label>
+    )
+  }
+
+  <button type="submit" class={compact ? 'btn-primary w-full' : 'btn-primary md:col-span-2 md:w-fit'}>
+    Suscribirme
+  </button>
+
+  {
+    compact && (
+      <p class="text-xs text-muted">
+        Al suscribirte aceptas nuestra{' '}
+        <a href={`${baseUrl}/privacidad`} class="underline">
+          política de privacidad
+        </a>
+        .
+      </p>
+    )
+  }
+</form>

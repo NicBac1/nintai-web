@@ -1,0 +1,132 @@
+---
+import { Icon } from 'astro-icon/components';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/ui/Section.astro';
+import BookingCTA from '@/components/booking/BookingCTA.astro';
+import { siteConfig } from '@/lib/site';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const formspree = siteConfig.formspreeEndpoint;
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Conversemos sobre cómo Nintai puede acompañar tu proceso, el de tu familia, tu equipo o tu institución."
+>
+  <section class="bg-cream py-section-lg">
+    <div class="container-prose mx-auto max-w-3xl text-center">
+      <p class="eyebrow mb-4">Conversemos</p>
+      <h1 class="font-display text-display-xl text-sage-deep">
+        Estamos a un mensaje de distancia
+      </h1>
+      <p class="mt-6 text-lg text-ink/80">
+        Cuéntanos qué necesitas y construimos juntos el espacio para acompañarlo.
+      </p>
+    </div>
+  </section>
+
+  <Section>
+    <div class="mx-auto grid max-w-5xl gap-10 md:grid-cols-[1fr_1.2fr]">
+      <div class="space-y-6">
+        <div class="card">
+          <p class="eyebrow mb-2">La vía más rápida</p>
+          <h2 class="font-display text-2xl text-sage-deep">WhatsApp</h2>
+          <p class="mt-2 text-ink/80">
+            Te responderemos en horario hábil. Cuéntanos quién eres y qué te
+            interesa para conversar con más contexto.
+          </p>
+          <div class="mt-5">
+            <BookingCTA label="Escribir por WhatsApp" />
+          </div>
+        </div>
+
+        <div class="card">
+          <p class="eyebrow mb-2">Otros canales</p>
+          <ul class="space-y-3 text-sm">
+            <li>
+              <a href={`mailto:${siteConfig.email}`} class="inline-flex items-center gap-2 text-ink hover:text-sage">
+                <Icon name="lucide:mail" class="h-4 w-4" />
+                {siteConfig.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={siteConfig.instagramUrl}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2 text-ink hover:text-sage"
+              >
+                <Icon name="lucide:instagram" class="h-4 w-4" />
+                @{siteConfig.instagramHandle}
+              </a>
+            </li>
+            <li class="inline-flex items-center gap-2 text-ink">
+              <Icon name="lucide:map-pin" class="h-4 w-4" />
+              {siteConfig.locations.join(' · ')}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="font-display text-2xl text-sage-deep">Escríbenos un mensaje</h2>
+        <p class="mt-2 text-sm text-muted">
+          Te leemos con calma. Responderemos al correo que nos compartas.
+        </p>
+
+        <form
+          action={formspree}
+          method="POST"
+          class="mt-6 grid gap-4"
+          aria-label="Formulario de contacto"
+        >
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-ink">Nombre</span>
+            <input type="text" name="name" required class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink focus:border-sage focus:outline-none" />
+          </label>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="flex flex-col gap-1 text-sm">
+              <span class="font-medium text-ink">Correo</span>
+              <input type="email" name="email" required class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink focus:border-sage focus:outline-none" />
+            </label>
+            <label class="flex flex-col gap-1 text-sm">
+              <span class="font-medium text-ink">Teléfono (opcional)</span>
+              <input type="tel" name="phone" class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink focus:border-sage focus:outline-none" />
+            </label>
+          </div>
+
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-ink">¿Quién nos contacta?</span>
+            <select name="audience" required class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink focus:border-sage focus:outline-none">
+              <option value="">Selecciona una opción</option>
+              <option value="colegio">Comunidad educativa / Colegio</option>
+              <option value="familia">Familia</option>
+              <option value="organizacion">Organización / Empresa</option>
+              <option value="individual">Proceso individual</option>
+              <option value="otro">Otro</option>
+            </select>
+          </label>
+
+          <label class="flex flex-col gap-1 text-sm">
+            <span class="font-medium text-ink">Mensaje</span>
+            <textarea name="message" rows="5" required class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink focus:border-sage focus:outline-none"></textarea>
+          </label>
+
+          <label class="flex items-start gap-2 text-xs text-muted">
+            <input type="checkbox" name="consent" required class="mt-1 accent-sage" />
+            <span>
+              Acepto la <a href={`${baseUrl}/privacidad`} class="underline">política de privacidad</a>
+              y autorizo el tratamiento de mis datos para responder a esta solicitud.
+            </span>
+          </label>
+
+          <button type="submit" class="btn-primary w-fit">
+            Enviar mensaje
+            <Icon name="lucide:arrow-up-right" class="h-4 w-4" />
+          </button>
+        </form>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

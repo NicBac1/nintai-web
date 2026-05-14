@@ -1,0 +1,87 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { siteConfig } from '@/lib/site';
+---
+
+<BaseLayout
+  title="Política de privacidad"
+  description="Política de tratamiento de datos personales de Nintai conforme a la Ley 1581 de 2012 (Habeas Data)."
+  noindex
+>
+  <section class="bg-cream py-section-lg">
+    <div class="container-prose mx-auto max-w-3xl">
+      <p class="eyebrow mb-4">Información legal</p>
+      <h1 class="font-display text-display-lg text-sage-deep">
+        Política de tratamiento de datos personales
+      </h1>
+      <p class="mt-4 text-sm text-muted">
+        Última actualización: mayo de 2026 · Versión preliminar para revisión legal.
+      </p>
+
+      <div class="prose-content mt-10 space-y-6 text-ink/85">
+        <p>
+          En cumplimiento de lo dispuesto por la Ley 1581 de 2012, el Decreto 1377 de 2013 y demás
+          normativa concordante, {siteConfig.businessName} informa a sus clientes, prospectos y
+          visitantes la política aplicable al tratamiento de sus datos personales.
+        </p>
+
+        <h2 class="font-display text-2xl text-sage-deep">1. Responsable del tratamiento</h2>
+        <p>
+          {siteConfig.businessName} ({siteConfig.subtitle}), con presencia en
+          {' '}{siteConfig.locations.join(', ')}. Contacto:
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+        </p>
+
+        <h2 class="font-display text-2xl text-sage-deep">2. Datos que recolectamos</h2>
+        <p>
+          Recolectamos únicamente los datos que tú nos proporcionas voluntariamente: nombre,
+          correo electrónico, número de WhatsApp (opcional) y mensajes que nos compartes a
+          través de nuestros formularios de contacto y suscripción.
+        </p>
+
+        <h2 class="font-display text-2xl text-sage-deep">3. Finalidad del tratamiento</h2>
+        <ul class="list-disc pl-6">
+          <li>Responder a tus solicitudes de información y contacto.</li>
+          <li>Compartir información sobre nuestros próximos encuentros y servicios cuando hayas otorgado tu consentimiento expreso.</li>
+          <li>Gestionar la relación profesional con instituciones y personas que contratan nuestros servicios.</li>
+        </ul>
+
+        <h2 class="font-display text-2xl text-sage-deep">4. Tus derechos</h2>
+        <p>Como titular de tus datos personales tienes derecho a:</p>
+        <ul class="list-disc pl-6">
+          <li>Conocer, actualizar y rectificar tus datos.</li>
+          <li>Solicitar prueba de la autorización otorgada.</li>
+          <li>Ser informado del uso que se le ha dado a tus datos.</li>
+          <li>Revocar la autorización y/o solicitar la supresión de tus datos cuando no se respeten los principios, derechos y garantías constitucionales y legales.</li>
+          <li>Acceder gratuitamente a tus datos personales que hayan sido objeto de tratamiento.</li>
+        </ul>
+
+        <h2 class="font-display text-2xl text-sage-deep">5. Cómo ejercer tus derechos</h2>
+        <p>
+          Puedes ejercer tus derechos escribiéndonos a
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>. Atenderemos tu
+          solicitud dentro de los plazos establecidos por la normativa colombiana.
+        </p>
+
+        <h2 class="font-display text-2xl text-sage-deep">6. Seguridad y conservación</h2>
+        <p>
+          Aplicamos medidas técnicas y organizativas razonables para proteger tus datos.
+          Conservamos la información únicamente por el tiempo necesario para las finalidades
+          descritas o hasta que solicites su supresión.
+        </p>
+
+        <p class="text-sm text-muted">
+          Esta política se encuentra en revisión legal y será actualizada antes del lanzamiento
+          oficial. Para cualquier inquietud sobre el tratamiento de tus datos personales,
+          contáctanos a <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose-content :global(p) { line-height: 1.7; }
+  .prose-content :global(h2) { margin-top: 1.5rem; }
+  .prose-content :global(a) { text-decoration: underline; }
+</style>
