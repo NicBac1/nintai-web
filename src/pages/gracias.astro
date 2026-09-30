@@ -1,0 +1,29 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BookingCTA from '@/components/booking/BookingCTA.astro';
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="Mensaje enviado"
+  description="Gracias por escribirnos. Te responderemos pronto."
+  noindex
+>
+  <section class="bg-cream py-section-lg">
+    <div class="container-prose mx-auto max-w-2xl text-center">
+      <p class="eyebrow mb-4">Listo</p>
+      <h1 class="font-display text-display-xl text-sage-deep">
+        Recibimos tu mensaje
+      </h1>
+      <p class="mt-6 text-lg text-ink/80">
+        Gracias por escribirnos. Te responderemos con calma en horario hábil.
+        Si prefieres conversar ahora, también estamos por WhatsApp.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <BookingCTA label="Escribir por WhatsApp" />
+        <a href={`${baseUrl}/`} class="btn-secondary">Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

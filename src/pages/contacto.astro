@@ -70,14 +70,26 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="card">
         <h2 class="font-display text-2xl text-sage-deep">Escríbenos un mensaje</h2>
         <p class="mt-2 text-sm text-muted">
-          Completa el formulario y lo enviamos por WhatsApp para conversar contigo.
+          Te leemos con calma. Responderemos al correo que nos compartas.
         </p>
 
         <form
+          name="contact"
+          method="POST"
+          action={`${baseUrl}/gracias`}
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           class="mt-6 grid gap-4"
           aria-label="Formulario de contacto"
-          data-whatsapp-contact
         >
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden" aria-hidden="true">
+            <label>
+              No completar
+              <input name="bot-field" tabindex="-1" autocomplete="off" />
+            </label>
+          </p>
+
           <label class="flex flex-col gap-1 text-sm">
             <span class="font-medium text-ink">Nombre</span>
             <input type="text" name="name" required class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink focus:border-sage focus:outline-none" />
@@ -119,36 +131,11 @@ const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
           </label>
 
           <button type="submit" class="btn-primary w-fit">
-            Enviar por WhatsApp
-            <Icon name="lucide:message-circle" class="h-4 w-4" />
+            Enviar mensaje
+            <Icon name="lucide:arrow-up-right" class="h-4 w-4" />
           </button>
         </form>
       </div>
     </div>
   </Section>
 </BaseLayout>
-
-<script>
-  import { firstValue, wireWhatsappForm } from '@/lib/form-to-whatsapp';
-
-  document.querySelectorAll<HTMLFormElement>('[data-whatsapp-contact]').forEach((form) => {
-    wireWhatsappForm(form, (data) => {
-      const name = firstValue(data, 'name');
-      const email = firstValue(data, 'email');
-      const phone = firstValue(data, 'phone');
-      const audience = firstValue(data, 'audience');
-      const message = firstValue(data, 'message');
-
-      return [
-        `Hola, soy ${name}.`,
-        `Correo: ${email}`,
-        phone ? `Teléfono: ${phone}` : null,
-        `Quién contacta: ${audience}`,
-        '',
-        message,
-      ]
-        .filter((line) => line !== null)
-        .join('\n');
-    });
-  });
-</script>

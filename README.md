@@ -1,18 +1,16 @@
 # Nintai — Experiencias Psicoeducativas
 
-A small, calm, professional marketing site for **Nintai**, a Colombian psychoeducational practice. Built with Astro 4, Tailwind, and TypeScript. This is Phase 0 of the rollout (see `docs/superpowers/specs/2026-05-13-nintai-website-design.md`).
+A small, calm, professional marketing site for **Nintai**, a Colombian psychoeducational practice. Built with Astro 4, Tailwind, and TypeScript. Hosted on **Netlify** (forms included).
 
 ## Local development
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321/nintai-web/
+npm run dev      # http://localhost:4321/
 npm run check    # types + content collections + .astro syntax
 npm run build    # outputs to ./dist
 npm run preview  # serves ./dist locally
 ```
-
-> Note: the dev server lives under the base path `/nintai-web/` because Phase 0 deploys as a GitHub Pages project site. When migrating to a custom domain in Phase 1, change `base: '/'` and `site` in `astro.config.mjs`.
 
 ## Project layout
 
@@ -22,10 +20,10 @@ src/
 ├── components/
 │   ├── layout/          Header, Footer, FloatingWhatsApp
 │   ├── ui/              Section, Pill
-│   ├── booking/         BookingCTA — single source of truth for WhatsApp / booking
+│   ├── booking/         BookingCTA — WhatsApp CTAs
 │   ├── events/          EventCard, PastEventCard
 │   ├── services/        ServiceSection
-│   └── subscribe/       SubscribeForm
+│   └── subscribe/       SubscribeForm (Netlify Forms)
 ├── content/             markdown-driven content collections (events, services, pillars)
 ├── layouts/             BaseLayout
 ├── lib/                 siteConfig, buildWhatsappUrl
@@ -36,8 +34,7 @@ public/
 docs/superpowers/
 ├── specs/               approved design spec
 └── plans/               implementation plans
-.github/workflows/
-└── deploy.yml           build + publish to GitHub Pages
+netlify.toml             build + publish settings
 ```
 
 ## Editing content
@@ -49,27 +46,27 @@ docs/superpowers/
 - **Pre-filled WhatsApp messages per audience:** `src/lib/whatsapp.ts`.
 - **Lucide icons:** any new icon name must also be added to `astro.config.mjs > integrations > icon.include.lucide`.
 
-## Deploy (GitHub Pages)
+## Deploy (Netlify)
 
-Before the first deploy:
+1. Push this repo to GitHub (already at `NicBac1/nintai-web`).
+2. In [Netlify](https://app.netlify.com): **Add new site → Import an existing project → GitHub → nintai-web**.
+3. Build settings are read from `netlify.toml` (`npm run build` → `dist`). Leave them as detected.
+4. Deploy. You’ll get a URL like `https://<random-name>.netlify.app`.
+5. Optional: Site settings → **Domain management** → set a custom domain, and set env `SITE_URL` to that domain.
+6. **Forms:** after the first deploy, open **Forms** in the Netlify UI. Submissions for `contact` and `subscribe` appear there; enable email notifications under form settings.
 
-1. Open `astro.config.mjs` and replace `GITHUB_USER = 'CHANGE-ME-GITHUB-USERNAME'` with your real GitHub username.
-2. Push the repo to GitHub as `nintai-web` (the slug must match `REPO_NAME` in `astro.config.mjs`).
-3. In the repo on GitHub: **Settings → Pages → Source: GitHub Actions**.
-4. Push to `main`. The workflow at `.github/workflows/deploy.yml` does the rest.
+Local `astro dev` cannot receive Netlify Forms — submissions only work on the deployed Netlify site.
 
-The site will be available at `https://<your-username>.github.io/nintai-web/`.
+## Forms
 
-## Things still using placeholders (intentional for the demo)
-
-- `GITHUB_USER` in `astro.config.mjs` — must be set before the first deploy.
-- Bodies of `src/content/pillars/*.md` and `src/content/services/*.md` are short. The homepage and `/servicios` only use frontmatter, so longer prose is optional polish for `/sobre-nintai`.
-- Contact and subscribe forms open WhatsApp with a pre-filled message (no third-party form backend).
+- Contact (`/contacto`) and subscribe (footer + `/eventos`) post to **Netlify Forms**.
+- After submit, visitors land on `/gracias`.
+- WhatsApp buttons remain available as a faster direct channel.
 
 ## Phase 1 and beyond
 
-See `docs/superpowers/specs/2026-05-13-nintai-website-design.md` section 9 for the full phased rollout (Netlify migration, Decap CMS, Brevo email automation, Cal.com booking, Wompi payments, WhatsApp automation).
+See `docs/superpowers/specs/2026-05-13-nintai-website-design.md` section 9 for Decap CMS, Brevo, Cal.com, Wompi, etc.
 
 ## Pinned dependency note
 
-`@astrojs/sitemap` is pinned to `3.3.1` rather than the latest 3.x. Versions ≥ 3.4.0 use the `astro:routes:resolved` hook which only exists in Astro 5+. When this project is upgraded to Astro 5 (Phase 1 candidate), the pin can be relaxed.
+`@astrojs/sitemap` is pinned to `3.3.1` rather than the latest 3.x. Versions ≥ 3.4.0 use the `astro:routes:resolved` hook which only exists in Astro 5+. When this project is upgraded to Astro 5, the pin can be relaxed.
