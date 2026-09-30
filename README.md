@@ -32,7 +32,7 @@ src/
 ├── pages/               one file per route
 └── styles/              global.css (tokens, base, components)
 public/
-└── logo/nintai.svg      provided logo
+└── logo/nintai.webp     brochure logo (png favicon sibling)
 docs/superpowers/
 ├── specs/               approved design spec
 └── plans/               implementation plans
@@ -43,7 +43,7 @@ docs/superpowers/
 ## Editing content
 
 - **Events:** add a markdown file to `src/content/events/`. The schema in `src/content/config.ts` documents every field.
-- **Services:** edit the four files in `src/content/services/` — one per audience.
+- **Services:** edit the three files in `src/content/services/` — one per audience (Personas, Comunidades educativas, Empresas).
 - **Pillars:** edit `src/content/pillars/`.
 - **Site-wide config** (WhatsApp number, email, locations, Instagram handle): `src/lib/site.ts`.
 - **Pre-filled WhatsApp messages per audience:** `src/lib/whatsapp.ts`.

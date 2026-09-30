@@ -1,18 +1,16 @@
 ---
 audience: colegio
-sectionTitle: Cuidar a quienes educan
+sectionTitle: Entornos emocionalmente seguros
 image: ../../assets/photos/workshop-stretching.png
 imageAlt: Docentes participando en un encuentro vivencial de Nintai
 summary: >-
-  Diseñamos talleres y procesos para fortalecer el bienestar emocional de docentes,
-  directivos y comunidades escolares. Cuidamos a quienes están sosteniendo el
-  aprendizaje todos los días.
+  Las instituciones educativas son ecosistemas humanos. Nintai acompaña en la
+  construcción de entornos emocionalmente seguros para todos.
 workBullets:
-  - Bienestar y autocuidado docente
-  - Regulación emocional en el aula
-  - Vínculos sanos entre el equipo
-  - Cultura escolar consciente
-  - Acompañamiento a directivas
+  - Aulas emocionalmente seguras
+  - Programa para estudiantes
+  - Escuela para familias
+  - Prevención y detección
 ctaLabel: Solicitar propuesta
-order: 1
+order: 2
 ---

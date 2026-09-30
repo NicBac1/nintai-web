@@ -1,17 +1,16 @@
 ---
 audience: individual
-sectionTitle: Procesos individuales
+sectionTitle: Espacios significativos
 image: ../../assets/photos/team-reflection.png
 imageAlt: Espacio de reflexión y acompañamiento personal
 summary: >-
-  Acompañamiento personalizado para procesos de autoconocimiento, reflexión y
-  transformación. Un espacio para detenerte, mirar con calma y construir lo que
-  sigue.
+  En Nintai entendemos que cada historia es única. Nuestros procesos combinan
+  psicoeducación, técnicas holísticas y presencia humana genuina.
 workBullets:
-  - Autoconocimiento
-  - Procesos de transición
-  - Bienestar emocional
-  - Construcción de proyecto de vida
+  - Acompañamiento emocional a través de la psicoeducación
+  - Bienestar integral y consciente
+  - Procesos de transformación
+  - Encuentros de bienestar
 ctaLabel: Quiero conversar
-order: 4
+order: 1
 ---

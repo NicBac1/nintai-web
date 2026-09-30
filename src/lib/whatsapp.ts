@@ -6,13 +6,13 @@ import { siteConfig, type AudienceKey } from './site';
  */
 const audienceMessages: Record<AudienceKey, string> = {
   colegio:
-    'Hola, soy de una institución educativa y me gustaría conocer más sobre los talleres y procesos psicoeducativos para docentes.',
+    'Hola, soy de una institución educativa y me gustaría conocer más sobre los programas de Nintai para comunidades educativas.',
   familia:
-    'Hola, soy madre/padre/familiar y me gustaría conocer más sobre los talleres y procesos para familias.',
+    'Hola, soy madre/padre/familiar y me gustaría conocer más sobre la escuela para familias y los encuentros de bienestar.',
   organizacion:
-    'Hola, represento a una organización y me gustaría conocer más sobre los procesos de bienestar para nuestro equipo.',
+    'Hola, represento a una empresa y me gustaría conocer más sobre los programas de bienestar para nuestro equipo.',
   individual:
-    'Hola, me interesa un proceso de acompañamiento individual y quisiera conversar.',
+    'Hola, me interesa un acompañamiento para personas y quisiera conversar sobre los procesos de Nintai.',
   evento: 'Hola, me gustaría conocer más sobre este encuentro.',
 };
 

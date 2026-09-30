@@ -1,18 +1,15 @@
 ---
 audience: organizacion
-sectionTitle: Bienestar para organizaciones
+sectionTitle: Programas para empresas
 image: ../../assets/photos/workshop-circle.png
 imageAlt: Equipo en círculo durante un taller de bienestar
 summary: >-
-  Procesos psicoeducativos para equipos y organizaciones que quieren cultivar
-  culturas más humanas, conscientes y sostenibles. El bienestar de las personas
-  es la base de cualquier transformación.
+  El rendimiento sostenible nace del equilibrio emocional. Diseñamos estrategias
+  de bienestar que se ajustan a sus equipos.
 workBullets:
-  - Bienestar de equipos
-  - Comunicación asertiva
+  - Cultura emocional
   - Liderazgo consciente
-  - Gestión del estrés y la regulación emocional
-  - Vínculos saludables en el trabajo
+  - Programas anuales
 ctaLabel: Conocer propuesta
 order: 3
 ---

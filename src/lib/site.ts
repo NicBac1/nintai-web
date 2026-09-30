@@ -24,53 +24,46 @@ export const siteConfig = {
   tagline: 'Cultivamos bienestar, impulsamos transformación',
   subtitle: 'Experiencias Psicoeducativas',
   description:
-    'Experiencias psicoeducativas para comunidades educativas, familias y organizaciones en Bogotá, Fusagasugá y virtual.',
+    'Experiencias psicoeducativas para personas, comunidades educativas y empresas en Bogotá, Fusagasugá y virtual.',
   whatsappNumber: '573154336209',
-  email: 'hola@nintai.com.co',
+  email: 'psiconintai@gmail.com',
   instagramHandle: 'psico_nintai',
   instagramUrl: 'https://instagram.com/psico_nintai',
   locations: ['Bogotá', 'Fusagasugá', 'Virtual'],
-  formspreeEndpoint: 'https://formspree.io/f/CHANGE_ME', // swap with real Formspree form id
+  formspreeEndpoint: 'https://formspree.io/f/mbglbkzo',
 } as const;
 
+/** Public service audiences — matches brochure: Personas, Comunidades educativas, Empresas. */
 export const audiences: AudienceMeta[] = [
+  {
+    key: 'individual',
+    label: 'Personas',
+    icon: 'lucide:sprout',
+    blurb:
+      'Acompañamiento emocional a través de la psicoeducación: bienestar integral, procesos de transformación y encuentros de bienestar.',
+    anchor: 'personas',
+  },
   {
     key: 'colegio',
     label: 'Comunidades educativas',
     icon: 'lucide:graduation-cap',
     blurb:
-      'Talleres y procesos para cuidar a quienes educan: docentes, directivos y comunidades escolares.',
+      'Acompañamos la construcción de entornos emocionalmente seguros: aulas, estudiantes, familias y prevención.',
     anchor: 'comunidades-educativas',
   },
   {
-    key: 'familia',
-    label: 'Familias',
-    icon: 'lucide:heart-handshake',
-    blurb:
-      'Espacios para fortalecer vínculos, crianza consciente y bienestar emocional en el hogar.',
-    anchor: 'familias',
-  },
-  {
     key: 'organizacion',
-    label: 'Organizaciones',
+    label: 'Empresas',
     icon: 'lucide:building-2',
     blurb:
-      'Bienestar para equipos: talleres y procesos que cultivan culturas más humanas y sostenibles.',
-    anchor: 'organizaciones',
-  },
-  {
-    key: 'individual',
-    label: 'Procesos individuales',
-    icon: 'lucide:sprout',
-    blurb:
-      'Acompañamiento personalizado para procesos de reflexión, crecimiento y transformación.',
-    anchor: 'procesos-individuales',
+      'Estrategias de bienestar que se ajustan a sus equipos: cultura emocional, liderazgo consciente y programas anuales.',
+    anchor: 'empresas',
   },
 ];
 
 export const audienceByKey: Record<AudienceKey, AudienceMeta | undefined> = {
   colegio: audiences.find((a) => a.key === 'colegio'),
-  familia: audiences.find((a) => a.key === 'familia'),
+  familia: undefined,
   organizacion: audiences.find((a) => a.key === 'organizacion'),
   individual: audiences.find((a) => a.key === 'individual'),
   evento: undefined,

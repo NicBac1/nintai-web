@@ -46,7 +46,7 @@ const services = defineCollection({
   type: 'content',
   schema: ({ image }) =>
     z.object({
-      audience: z.enum(['colegio', 'familia', 'organizacion', 'individual']),
+      audience: z.enum(['colegio', 'organizacion', 'individual']),
       sectionTitle: z.string(),
       image: image(),
       imageAlt: z.string(),
