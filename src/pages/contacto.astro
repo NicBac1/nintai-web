@@ -6,7 +6,6 @@ import BookingCTA from '@/components/booking/BookingCTA.astro';
 import { siteConfig } from '@/lib/site';
 
 const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
-const formspree = siteConfig.formspreeEndpoint;
 ---
 
 <BaseLayout
@@ -71,14 +70,13 @@ const formspree = siteConfig.formspreeEndpoint;
       <div class="card">
         <h2 class="font-display text-2xl text-sage-deep">Escríbenos un mensaje</h2>
         <p class="mt-2 text-sm text-muted">
-          Te leemos con calma. Responderemos al correo que nos compartas.
+          Completa el formulario y lo enviamos por WhatsApp para conversar contigo.
         </p>
 
         <form
-          action={formspree}
-          method="POST"
           class="mt-6 grid gap-4"
           aria-label="Formulario de contacto"
+          data-whatsapp-contact
         >
           <label class="flex flex-col gap-1 text-sm">
             <span class="font-medium text-ink">Nombre</span>
@@ -100,10 +98,10 @@ const formspree = siteConfig.formspreeEndpoint;
             <span class="font-medium text-ink">¿Quién nos contacta?</span>
             <select name="audience" required class="rounded-2xl border border-cream-deep bg-cream px-4 py-3 text-ink focus:border-sage focus:outline-none">
               <option value="">Selecciona una opción</option>
-              <option value="individual">Persona</option>
-              <option value="colegio">Comunidad educativa</option>
-              <option value="organizacion">Empresa</option>
-              <option value="otro">Otro</option>
+              <option value="Persona">Persona</option>
+              <option value="Comunidad educativa">Comunidad educativa</option>
+              <option value="Empresa">Empresa</option>
+              <option value="Otro">Otro</option>
             </select>
           </label>
 
@@ -121,11 +119,36 @@ const formspree = siteConfig.formspreeEndpoint;
           </label>
 
           <button type="submit" class="btn-primary w-fit">
-            Enviar mensaje
-            <Icon name="lucide:arrow-up-right" class="h-4 w-4" />
+            Enviar por WhatsApp
+            <Icon name="lucide:message-circle" class="h-4 w-4" />
           </button>
         </form>
       </div>
     </div>
   </Section>
 </BaseLayout>
+
+<script>
+  import { firstValue, wireWhatsappForm } from '@/lib/form-to-whatsapp';
+
+  document.querySelectorAll<HTMLFormElement>('[data-whatsapp-contact]').forEach((form) => {
+    wireWhatsappForm(form, (data) => {
+      const name = firstValue(data, 'name');
+      const email = firstValue(data, 'email');
+      const phone = firstValue(data, 'phone');
+      const audience = firstValue(data, 'audience');
+      const message = firstValue(data, 'message');
+
+      return [
+        `Hola, soy ${name}.`,
+        `Correo: ${email}`,
+        phone ? `Teléfono: ${phone}` : null,
+        `Quién contacta: ${audience}`,
+        '',
+        message,
+      ]
+        .filter((line) => line !== null)
+        .join('\n');
+    });
+  });
+</script>

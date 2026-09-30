@@ -63,8 +63,8 @@ The site will be available at `https://<your-username>.github.io/nintai-web/`.
 ## Things still using placeholders (intentional for the demo)
 
 - `GITHUB_USER` in `astro.config.mjs` — must be set before the first deploy.
-- `siteConfig.formspreeEndpoint` in `src/lib/site.ts` — replace with a real Formspree form id to receive contact + subscribe submissions, or wait for Phase 1 (Netlify Forms + Brevo).
 - Bodies of `src/content/pillars/*.md` and `src/content/services/*.md` are short. The homepage and `/servicios` only use frontmatter, so longer prose is optional polish for `/sobre-nintai`.
+- Contact and subscribe forms open WhatsApp with a pre-filled message (no third-party form backend).
 
 ## Phase 1 and beyond
 

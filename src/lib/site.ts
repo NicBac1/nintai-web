@@ -30,7 +30,6 @@ export const siteConfig = {
   instagramHandle: 'psico_nintai',
   instagramUrl: 'https://instagram.com/psico_nintai',
   locations: ['Bogotá', 'Fusagasugá', 'Virtual'],
-  formspreeEndpoint: 'https://formspree.io/f/mbglbkzo',
 } as const;
 
 /** Public service audiences — matches brochure: Personas, Comunidades educativas, Empresas. */
